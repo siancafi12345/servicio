@@ -11,7 +11,7 @@
 "n_mero_tel_fono": "8472121",
 "nombre_municipio": "Amaga",
 "nombre_regi_n": "Suroeste",
-"nombre_sede": "prueba",
+"nombre_sede": "nombre a pintar",
 "punto": {
 
 "type": "Point",
@@ -19,8 +19,7 @@
 -75.704572,
 6.040678
 ]
-},
-"raz_n_social_organizaci_n": "prueba 1"
+}
 }
 
 ]
