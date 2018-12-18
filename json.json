@@ -1,68 +1,5 @@
 [
 {
-"c_digo_habilitaci_n_prestador_salud": "053610450501",
-"c_digo_municipio": "05361",
-"c_digo_regi_n": "05",
-"d_gito_verificaci_n_nit": "3",
-"direcci_n": "KR QUINDIO #  25-54",
-"direcci_n_correo_electr_nico": "ituahs01@edatel.net.co",
-"n_mero_nit": "890980840",
-"n_mero_tel_fono": "8643100",
-"nombre_municipio": "Ituango",
-"nombre_regi_n": "Norte",
-"nombre_sede": "E.S.E.  HOSPITAL SAN JUAN DE DIOS DE ITUANGO",
-"punto": {
-"type": "Point",
-"coordinates": [
--75.764535,
-7.170186
-]
-},
-"raz_n_social_organizaci_n": "E.S.E.  HOSPITAL SAN JUAN DE DIOS DE ITUANGO"
-},
-{
-"c_digo_habilitaci_n_prestador_salud": "050550547901",
-"c_digo_municipio": "05055",
-"c_digo_regi_n": "07",
-"d_gito_verificaci_n_nit": "9",
-"direcci_n": "CL 31 # 32-14",
-"direcci_n_correo_electr_nico": "argeh01@edatel.net.co",
-"n_mero_nit": "890981851",
-"n_mero_tel_fono": "8650042",
-"nombre_municipio": "Argelia",
-"nombre_regi_n": "Oriente",
-"nombre_sede": "EMPRESA SOCIAL DEL ESTADO HOSPITAL SAN JULIAN",
-"punto": {
-"type": "Point",
-"coordinates": [
--75.144671,
-5.731866
-]
-},
-"raz_n_social_organizaci_n": "EMPRESA SOCIAL DEL ESTADO HOSPITAL SAN JULIAN"
-},
-{
-"c_digo_habilitaci_n_prestador_salud": "053760592601",
-"c_digo_municipio": "05376",
-"c_digo_regi_n": "07",
-"d_gito_verificaci_n_nit": "7",
-"direcci_n": "CL 17 # 19-55",
-"direcci_n_correo_electr_nico": "hospitalceja@epm.net.co",
-"n_mero_nit": "890980758",
-"n_mero_tel_fono": "5531444",
-"nombre_municipio": "La Ceja",
-"nombre_regi_n": "Oriente",
-"nombre_sede": "HOSPITAL DE LA CEJA ESE",
-"punto": {
-"type": "Point",
-"coordinates": [
--75.431319,
-6.028307
-]
-},
-"raz_n_social_organizaci_n": "E.S.E. HOSPITAL DE LA CEJA"
-},
-{
 "c_digo_habilitaci_n_prestador_salud": "050300437401",
 "c_digo_municipio": "05030",
 "c_digo_regi_n": "08",
@@ -75,7 +12,7 @@
 "nombre_regi_n": "Suroeste",
 "nombre_sede": "E.S.E. HOSPITAL SAN FERNANDO",
 "punto": {
-    
+
 "type": "Point",
 "coordinates": [
 -75.704572,
