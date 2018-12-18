@@ -1,79 +1,135 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+<meta charset="utf-8">
+<title>Google Geocoder</title>
+<style>
+body,
+body * {
+	margin:0;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.buscador {
+	text-align:center;
+	padding:30px 0px;
+}
+
+.buscador #direccion {
+	margin:10px auto;
+	width:100%;
+	padding:7px;
+	max-width:250px;
+}
+
+.buscador #buscar {
+	margin:0 auto;
+	max-width:250px;
+	padding:7px;
+	color:#FFFFFF;
+	background:#f2777a;
+	border:2px solid #f2777a;
+	cursor:pointer;
+}
+</style>
 </head>
 <body>
-	<div id="map"i style="width: auto;height: 800px;">
+
+<!-- <div class="buscador">
+	<h2>Ingrese una dirección</h2>
+    <input type="text" id="direccion">
+    <div id="buscar">Buscar</div>
+</div> -->
+
+<div id="mapa-geocoder" class="mapa" style="width:100%;display:block;position:absolute;"></div>
+
+<script src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"></script>
+<script>
+$(document).ready(function() {
+
+
+
+	$(window).on("load resize", function() {
+		var alturaBuscador = $(".buscador").outerHeight(true),
+			alturaVentana = $(window).height(),
+			alturaMapa = alturaVentana - alturaBuscador;
 		
-	</div>
-	
-	<script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-8wZz-ns8U051dxYcWQLaR-tMC4cw4NA&libraries=places"
-	></script>
-	<script>
+		$("#mapa-geocoder").css("height", alturaMapa+"px");
+	});
 
-
-
-
-
-	// 	var map;
-	//  var map = new google.maps.Map(document.getElementById('map'), {
-    //                   zoom: 6,
-    //                   center: {lat: 4.0000000, lng: -72.0000000}
-    //               });
-
-
-
-    const getLocations = () => {
-    //fetch('https://www.datos.gov.co/resource/g373-n3yy.json')
-    fetch('https://raw.githubusercontent.com/siancafi12345/servicio/master/json.json')
     
-    .then(response => response.json())
-    .then(locations => {
-        let locationsInfo = []
+    
+    function localizar(elemento,direccion) {
         
-        locations.forEach(location => {
-            let locationData = {
-                position:{lat:location.punto.coordinates[1],lng:location.punto.coordinates[0]},
-                name:location.nombre_sede                
-            }
-            locationsInfo.push(locationData)
-        })
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition((data)=>{
-                let currentPosition = {
-                    lat: data.coords.latitude,
-                    lng: data.coords.longitude
-                }
-                dibujarMapa(currentPosition, locationsInfo)
-            })
-        }
-    })
-}
+		var geocoder = new google.maps.Geocoder();
 
-const dibujarMapa = (obj, locationsInfo) => {
-   let map = new google.maps.Map(document.getElementById('map'),{
-        zoom: 7,
-        center: obj
-    })
+		var map = new google.maps.Map(document.getElementById(elemento), {
+		  zoom: 6,
+		  scrollwheel: true,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		       
+        _.forOwn(direccion, function(value, key) { 
+                    
+               
+               
+		geocoder.geocode({'address': value}, function(results, status) {
+			if (status === 'OK') {
+				var resultados = results[0].geometry.location,
+					resultados_lat = resultados.lat(),
+					resultados_long = resultados.lng();
+				
+                
+				map.setCenter(results[0].geometry.location);
+				var marker = new google.maps.Marker({
+					map: map,
+					position: results[0].geometry.location,
+                    title: "ejemplo"
+				});
+			} else {
+				var mensajeError = "";
+				if (status === "ZERO_RESULTS") {
+					mensajeError = "No hubo resultados para la dirección ingresada.";
+				} else if (status === "OVER_QUERY_LIMIT" || status === "REQUEST_DENIED" || status === "UNKNOWN_ERROR") {
+					mensajeError = "Error general del mapa.";
+				} else if (status === "INVALID_REQUEST") {
+					mensajeError = "Error de la web. Contacte con Name Agency.";
+				}
+				alert(mensajeError);
+			}
+		});
+	
+    } );
+    
+    }
+	
+    $.getScript("https://maps.googleapis.com/maps/api/js?key=AIzaSyC-8wZz-ns8U051dxYcWQLaR-tMC4cw4NA&libraries=places", function() {
+	 
+	 
+	 var direccion = [{"name":"linktic","title":"ejemplo"},{"name":"espinal","title":"ejemplo1"},{"name":"coello","title":"ejemplo2"},{"name":"cunira","title":"ejemplo3"},{"name":"llanos orientales","title":"ejemplo4"}];
+             var total= [];
+			 
+             _.forOwn(direccion, function(value, key) { 
+                    if (value !== "") {
+		 		     total.name.push(value);
+					  
+		 	        } 
+                ;
+                } );
 
-    let marker = new google.maps.Marker({
+				console.log(total);
+                localizar("mapa-geocoder", total);
+		 	
         
-    })
-    marker.setMap(map)
+        
 
-    let markers = locationsInfo.map(place => {
-        return new google.maps.Marker({
-            position: place.position,
-            map: map,
-            title: place.name
-        })
-    })
-}
-window.addEventListener('load',getLocations)
+        
+    
 
-		</script>
+
+	});
+});
+</script>
 </body>
-
 </html>

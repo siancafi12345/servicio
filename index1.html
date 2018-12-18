@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="map"i style="width: auto;height: 800px;">
+		
+	</div>
+	
+	<script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-8wZz-ns8U051dxYcWQLaR-tMC4cw4NA&libraries=places"
+	></script>
+	<script>
+
+
+
+
+
+	// 	var map;
+	//  var map = new google.maps.Map(document.getElementById('map'), {
+    //                   zoom: 6,
+    //                   center: {lat: 4.0000000, lng: -72.0000000}
+    //               });
+
+
+
+    const getLocations = () => {
+    //fetch('https://www.datos.gov.co/resource/g373-n3yy.json')
+    //fetch('https://raw.githubusercontent.com/siancafi12345/servicio/master/json.json')
+    
+    
+    fetch('/json.json')
+    .then(response => response.json())
+    .then(locations => {
+        let locationsInfo = []
+        locations.forEach(location => {
+        console.log(location.direcci_n);
+
+            let locationData = {
+                
+                position:{lat:location.punto.coordinates[1],lng:location.punto.coordinates[0]},
+                //position:{address:location.direcci_n},
+                name:location.nombre_sede                
+            }
+            locationsInfo.push(locationData)
+        })
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition((data)=>{
+                let currentPosition = {
+                    lat: data.coords.latitude,
+                    lng: data.coords.longitude
+                }
+                dibujarMapa(currentPosition, locationsInfo)
+            })
+        }
+    })
+}
+
+const dibujarMapa = (obj, locationsInfo) => {
+   let map = new google.maps.Map(document.getElementById('map'),{
+        zoom: 7,
+        center: obj
+    })
+
+    let marker = new google.maps.Marker({
+        
+    })
+    marker.setMap(map)
+
+    let markers = locationsInfo.map(place => {
+        return new google.maps.Marker({
+            position: place.position,
+            map: map,
+            title: place.name
+        })
+    })
+}
+window.addEventListener('load',getLocations)
+
+		</script>
+</body>
+
+</html>
